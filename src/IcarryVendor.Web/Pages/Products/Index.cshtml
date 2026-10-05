@@ -1,0 +1,1962 @@
+@page
+@model IcarryVendor.Web.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "商品管理";
+}
+<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+	<!--begin::Toolbar container-->
+	<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+		<!--begin::Page title-->
+		<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+			<!--begin::Title-->
+			<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">商品管理列表</h1>
+			<!--end::Title-->
+			<!--begin::Breadcrumb-->
+			<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+				<!--begin::Item-->
+				<li class="breadcrumb-item text-muted">
+					<a href="/" class="text-muted text-hover-primary">首頁</a>
+				</li>
+				<!--end::Item-->
+				<!--begin::Item-->
+				<li class="breadcrumb-item">
+					<span class="bullet bg-gray-400 w-5px h-2px"></span>
+				</li>
+				<!--end::Item-->
+				<!--begin::Item-->
+				<li class="breadcrumb-item text-muted">商品管理</li>
+				<!--end::Item-->
+			</ul>
+			<!--end::Breadcrumb-->
+		</div>
+		<!--end::Page title-->
+		<!--begin::Actions-->
+		<div class="d-flex align-items-center gap-2 gap-lg-3">
+			<!--begin::Filter menu-->
+			<div class="m-0">
+				<!--begin::Menu toggle-->
+				<a href="#" class="btn btn-sm btn-flex bg-body btn-color-gray-700 btn-active-color-primary fw-bold"
+					data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+					<!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+					<span class="svg-icon svg-icon-6 svg-icon-muted me-1">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z"
+								fill="currentColor" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->過濾</a>
+				<!--end::Menu toggle-->
+				<!--begin::Menu 1-->
+				<div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
+					id="kt_menu_633f09496b420">
+					<!--begin::Header-->
+					<div class="px-7 py-5">
+						<div class="fs-5 text-dark fw-bold">過濾條件</div>
+					</div>
+					<!--end::Header-->
+					<!--begin::Menu separator-->
+					<div class="separator border-gray-200"></div>
+					<!--end::Menu separator-->
+					<!--begin::Form-->
+					<div class="px-7 py-5">
+						<!--begin::Input group-->
+						<div class="row g-9 mb-8" >
+								<!--begin::Col-->
+								<div class="col-md-12 fv-row">
+									<label class=" fs-6 fw-semibold mb-2">上架時間區間</label>
+									<!--begin::Input-->
+									<div class="position-relative d-flex align-items-center">
+									<input class="form-control form-control-solid" placeholder="選擇日期區間" id="kt_daterangepicker_1" value=""/>
+									</div>
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+							</div>
+						<!--end::Input group-->
+						<!--begin::Input group-->
+						<div class="row g-9 mb-8" >
+								<!--begin::Col-->
+								<div class="col-md-12 fv-row">
+									<label class=" fs-6 fw-semibold mb-2">送審通過時間區間</label>
+									<!--begin::Input-->
+									<div class="position-relative d-flex align-items-center">
+									<input class="form-control form-control-solid" placeholder="選擇日期區間" id="kt_daterangepicker_2" value=""/>
+									</div>
+									<!--end::Input-->
+								</div>
+								<!--end::Col-->
+							</div>
+						<!--end::Input group-->
+						<!--begin::Input group-->
+						<div class="mb-10">
+							<!--begin::Label-->
+							<label class="form-label fw-semibold">其他選項</label>
+							<!--end::Label-->
+							<!--begin::Options-->
+							<div class="d-flex">
+								<!--begin::Options-->
+								<label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+									<input class="form-check-input" type="checkbox" value="1" />
+									<span class="form-check-label">低於安全庫存</span>
+								</label>
+								<!--end::Options-->
+								<!--begin::Options-->
+								<label class="form-check form-check-sm form-check-custom form-check-solid">
+									<input class="form-check-input" type="checkbox" value="2" />
+									<span class="form-check-label">庫存低於零</span>
+								</label>
+								<!--end::Options-->
+							</div>
+							<!--end::Options-->
+						</div>
+						<!--end::Input group-->
+						<!--begin::Input group-->
+						<div class="d-flex flex-column mb-8 fv-row">
+							<!--begin::Label-->
+							<label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+								<span class="">物流方式</span>
+							</label>
+							<input class="form-control form-control-solid" value="機場提貨, 旅店提貨, 寄送海外, 寄送台灣, 寄送當地" id="kt_tagify_1"/>
+						</div>
+						<!--end::Input group-->
+						<!--begin::Actions-->
+						<div class="d-flex justify-content-end">
+							<button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2"
+								data-kt-menu-dismiss="true">清除</button>
+							<button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">套用</button>
+						</div>
+						<!--end::Actions-->
+					</div>
+					<!--end::Form-->
+				</div>
+				<!--end::Menu 1-->
+			</div>
+			<!--end::Filter menu-->
+
+		</div>
+		<!--end::Actions-->
+	</div>
+	<!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Content-->
+<div id="kt_app_content" class="app-content flex-column-fluid">
+	<!--begin::Content container-->
+	<div id="kt_app_content_container" class="app-container container-xxl">
+		<!--begin::Products-->
+		<div class="card card-flush">
+			<!--begin::Card header-->
+			<div class="card-header align-items-center py-5 gap-2 gap-md-5">
+				<!--begin::Card title-->
+				<div class="card-title">
+					<!--begin::Search-->
+					<div class="d-flex align-items-center position-relative my-1">
+						<!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+						<span class="svg-icon svg-icon-1 position-absolute ms-4">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+									transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+								<path
+									d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+									fill="currentColor" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+						<input type="text" data-kt-ecommerce-product-filter="search"
+							class="form-control form-control-solid w-250px ps-14" placeholder="搜尋商品關鍵字／貨號" />
+					</div>
+					<!--end::Search-->
+				</div>
+				<!--end::Card title-->
+				<!--begin::Card toolbar-->
+				<div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+					<div class="w-100 mw-150px">
+						<!--begin::Select2-->
+						<select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+							data-placeholder="商品狀態" data-kt-ecommerce-product-filter="status">
+							<option></option>
+							<option value="all">所有商品狀態</option>
+							<option value="上架中">上架中</option>
+							<option value="待審核">待審核</option>
+							<option value="未送審／草稿">未送審／草稿</option>
+							<option value="審核不通過">審核不通過</option>
+							<option value="停售中">停售中</option>
+							<option value="已下架">已下架</option>
+						</select>
+						<!--end::Select2-->
+					</div>
+					<!--begin::Add product-->
+					<a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-primary">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1"
+                                        transform="rotate(-90 11.364 20.364)" fill="currentColor" />
+                                    <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->新增商品</a>
+					<!--end::Add product-->
+				</div>
+				<!--end::Card toolbar-->
+			</div>
+			<!--end::Card header-->
+			<!--begin::Card body-->
+			<div class="card-body pt-0">
+				<!--begin::Table-->
+				<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
+					<!--begin::Table head-->
+					<thead>
+						<!--begin::Table row-->
+						<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+							<th class="w-10px pe-2">
+								<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+									<input class="form-check-input" type="checkbox" data-kt-check="true"
+										data-kt-check-target="#kt_ecommerce_products_table .form-check-input"
+										value="1" />
+								</div>
+							</th>
+							<th class="w-25">品名／內容量</th>
+							<th class="text-end min-w-100px">貨號</th>
+							<th class="text-end min-w-70px">庫存</th>
+							<th class="text-end min-w-30px">安全庫存</th>
+							<th class="text-end min-w-70px">單價</th>
+							<th class="text-end min-w-30px">商品狀態</th>
+							<th class="text-end min-w-70px">操作</th>
+						</tr>
+						<!--end::Table row-->
+					</thead>
+					<!--end::Table head-->
+					<!--begin::Table body-->
+					<tbody class="fw-semibold text-gray-600">
+						<!--begin::Table row-->
+						<tr>
+							<!--begin::Checkbox-->
+							<td>
+								<div class="form-check form-check-sm form-check-custom form-check-solid">
+									<input class="form-check-input" type="checkbox" value="1" />
+								</div>
+							</td>
+							<!--end::Checkbox-->
+							<!--begin::Category=-->
+							<td>
+								<div class="d-flex align-items-center">
+									<!--begin::Thumbnail-->
+									<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+										class="symbol symbol-50px">
+										<span class="symbol-label"
+											style="background-image:url(/assets/media//stock/ecommerce/1.gif);"></span>
+									</a>
+									<!--end::Thumbnail-->
+									<div class="ms-5">
+										<!--begin::Title-->
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="text-gray-800 text-hover-primary fs-5 fw-bold"
+											data-kt-ecommerce-product-filter="product_name">《2023新春限定》◆福兔迎祥大禮盒3入◆(芝麻杏仁香脆肉紙+特厚蜜汁豬肉乾+原味元氣條)
+											<span class="badge badge-light-dark">金獎鳳梨酥4入+金獎鳳黃酥3入+100%純鳳梨酥3入</span>
+										</a>
+										<!--end::Title-->
+									</div>
+								</div>
+							</td>
+							<!--end::Category=-->
+							<!--begin::SKU=-->
+							<td class="text-end pe-0">
+								<div>
+									<span class="badge badge-light-dark">單一規格</span>
+									<span class="fw-bold">EC00185039705</span>
+								</div>
+							</td>
+							<!--end::SKU=-->
+							<!--begin::Qty=-->
+							<td class="text-end pe-0" data-order="28">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">28</a>
+								</div>
+							</td>
+							<!--end::Qty=-->
+							<!--begin::安全庫存-->
+							<td class="text-end pe-0" data-order="2">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+							</td>
+							<!--end::安全庫存-->
+							<!--begin::Price=-->
+							<td class="text-end pe-0">222</td>
+							<!--end::Price=-->
+							<!--begin::Status=-->
+							<td class="text-end pe-0" data-order="已下架">
+								<!--begin::Badges-->
+								<div class="badge badge-light-dark">已下架</div>
+								<!--end::Badges-->
+							</td>
+							<!--end::Status=-->
+							<!--begin::Action=-->
+							<td class="text-end">
+								<a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">操作
+									<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+									<span class="svg-icon svg-icon-5 m-0">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+												fill="currentColor" />
+										</svg>
+									</span>
+									<!--end::Svg Icon--></a>
+
+								<!--begin::Menu-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+									data-kt-menu="true">
+									<!--begin::Menu item 【查看】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+														height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+														fill="currentColor" />
+													<path
+														d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+														fill="currentColor" />
+
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											查看</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【編輯】「狀態限定：下架、未送審／草稿」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+														d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"
+														fill="currentColor" />
+													<path
+														d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
+														fill="currentColor" />
+													<path
+														d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											編輯</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【複製】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z"
+														fill="currentColor" />
+													<path fill-rule="evenodd" clip-rule="evenodd"
+														d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											複製</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【下架】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M13 14.4V3.00003C13 2.40003 12.6 2.00003 12 2.00003C11.4 2.00003 11 2.40003 11 3.00003V14.4H13Z"
+														fill="currentColor" />
+													<path
+														d="M5.7071 16.1071C5.07714 15.4771 5.52331 14.4 6.41421 14.4H17.5858C18.4767 14.4 18.9229 15.4771 18.2929 16.1071L12.7 21.7C12.3 22.1 11.7 22.1 11.3 21.7L5.7071 16.1071Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											下架</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【暫時停售】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" x="8.5" y="11" width="12" height="2" rx="1"
+														fill="currentColor" />
+													<path
+														d="M10.3687 11.6927L12.1244 10.2297C12.5946 9.83785 12.6268 9.12683 12.194 8.69401C11.8043 8.3043 11.1784 8.28591 10.7664 8.65206L7.84084 11.2526C7.39332 11.6504 7.39332 12.3496 7.84084 12.7474L10.7664 15.3479C11.1784 15.7141 11.8043 15.6957 12.194 15.306C12.6268 14.8732 12.5946 14.1621 12.1244 13.7703L10.3687 12.3073C10.1768 12.1474 10.1768 11.8526 10.3687 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											暫時停售</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【恢復上架】「狀態限定：停售中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" width="12" height="2" rx="1"
+														transform="matrix(-1 0 0 1 20 11)" fill="currentColor" />
+													<path
+														d="M18.1313 11.6927L16.3756 10.2297C15.9054 9.83785 15.8732 9.12683 16.306 8.69401C16.6957 8.3043 17.3216 8.28591 17.7336 8.65206L20.6592 11.2526C21.1067 11.6504 21.1067 12.3496 20.6592 12.7474L17.7336 15.3479C17.3216 15.7141 16.6957 15.6957 16.306 15.306C15.8732 14.8732 15.9054 14.1621 16.3756 13.7703L18.1313 12.3073C18.3232 12.1474 18.3232 11.8526 18.1313 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											恢復上架</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【刪除】-->
+									<div class="menu-item px-3">
+										<a href="#" class="menu-link px-3"
+											data-kt-ecommerce-product-filter="delete_row">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											刪除</a>
+									</div>
+									<!--end::Menu item-->
+								</div>
+								<!--end::Menu-->
+							</td>
+							<!--end::Action=-->
+						</tr>
+						<!--end::Table row-->
+						<!--begin::Table row-->
+						<tr>
+							<!--begin::Checkbox-->
+							<td>
+								<div class="form-check form-check-sm form-check-custom form-check-solid">
+									<input class="form-check-input" type="checkbox" value="1" />
+								</div>
+							</td>
+							<!--end::Checkbox-->
+							<!--begin::Category=-->
+							<td>
+								<div class="d-flex align-items-center">
+									<!--begin::Thumbnail-->
+									<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+										class="symbol symbol-50px">
+										<span class="symbol-label"
+											style="background-image:url(/assets/media//stock/ecommerce/2.gif);"></span>
+									</a>
+									<!--end::Thumbnail-->
+									<div class="ms-5">
+										<!--begin::Title-->
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="text-gray-800 text-hover-primary fs-5 fw-bold"
+											data-kt-ecommerce-product-filter="product_name">《2023新春限定》【團圓兔gether】養生藥膳春節禮盒
+											<span class="badge badge-light-dark">60g</span>
+										</a>
+										<!--end::Title-->
+									</div>
+								</div>
+							</td>
+							<!--end::Category=-->
+							<!--begin::SKU=-->
+							<td class="text-end pe-0">
+								<div>
+									<span class="badge badge-light-dark">組合A</span>
+									<span class="fw-bold">BOM001851640328831</span>
+								</div>
+								<div>
+									<span class="badge badge-light-dark">組合B</span>
+									<span class="fw-bold">BOM001851640328845</span>
+								</div>
+								<div>
+									<span class="badge badge-light-dark">組合C</span>
+									<span class="fw-bold">BOM001851640328845</span>
+								</div>
+								<div>
+									<span class="badge badge-light-dark">組合D</span>
+									<span class="fw-bold">BOM001851640328845</span>
+								</div>
+								<div>
+									<span class="badge badge-light-dark">組合E</span>
+									<span class="fw-bold">BOM001851640328845</span>
+								</div>
+							</td>
+							<!--end::SKU=-->
+							<!--begin::Qty=-->
+							<td class="text-end pe-0" data-order="28">
+								<div>
+									<span class="badge badge-light-warning">庫存緊張</span>
+									<a href="#" class="text-warning text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">1</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">10</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">5</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">6</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">8</a>
+								</div>
+
+							</td>
+							<!--end::Qty=-->
+							<!--begin::安全庫存-->
+							<td class="text-end pe-0" data-order="2">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+							</td>
+							<!--end::安全庫存-->
+							<!--begin::Price=-->
+							<td class="text-end pe-0">186</td>
+							<!--end::Price=-->
+							<!--end::Rating-->
+							<!--begin::Status=-->
+							<td class="text-end pe-0" data-order="停售中">
+								<!--begin::Badges-->
+								<div class="badge badge-light-dark">停售中</div>
+								<!--end::Badges-->
+							</td>
+							<!--end::Status=-->
+							<!--begin::Action=-->
+							<td class="text-end">
+								<a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">操作
+									<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+									<span class="svg-icon svg-icon-5 m-0">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+												fill="currentColor" />
+										</svg>
+									</span>
+									<!--end::Svg Icon--></a>
+								<!--begin::Menu-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+									data-kt-menu="true">
+									<!--begin::Menu item 【查看】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+														height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+														fill="currentColor" />
+													<path
+														d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+														fill="currentColor" />
+
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											查看</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【編輯】「狀態限定：下架、未送審／草稿」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+														d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"
+														fill="currentColor" />
+													<path
+														d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
+														fill="currentColor" />
+													<path
+														d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											編輯</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【複製】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z"
+														fill="currentColor" />
+													<path fill-rule="evenodd" clip-rule="evenodd"
+														d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											複製</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【下架】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M13 14.4V3.00003C13 2.40003 12.6 2.00003 12 2.00003C11.4 2.00003 11 2.40003 11 3.00003V14.4H13Z"
+														fill="currentColor" />
+													<path
+														d="M5.7071 16.1071C5.07714 15.4771 5.52331 14.4 6.41421 14.4H17.5858C18.4767 14.4 18.9229 15.4771 18.2929 16.1071L12.7 21.7C12.3 22.1 11.7 22.1 11.3 21.7L5.7071 16.1071Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											下架</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【暫時停售】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" x="8.5" y="11" width="12" height="2" rx="1"
+														fill="currentColor" />
+													<path
+														d="M10.3687 11.6927L12.1244 10.2297C12.5946 9.83785 12.6268 9.12683 12.194 8.69401C11.8043 8.3043 11.1784 8.28591 10.7664 8.65206L7.84084 11.2526C7.39332 11.6504 7.39332 12.3496 7.84084 12.7474L10.7664 15.3479C11.1784 15.7141 11.8043 15.6957 12.194 15.306C12.6268 14.8732 12.5946 14.1621 12.1244 13.7703L10.3687 12.3073C10.1768 12.1474 10.1768 11.8526 10.3687 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											暫時停售</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【恢復上架】「狀態限定：停售中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" width="12" height="2" rx="1"
+														transform="matrix(-1 0 0 1 20 11)" fill="currentColor" />
+													<path
+														d="M18.1313 11.6927L16.3756 10.2297C15.9054 9.83785 15.8732 9.12683 16.306 8.69401C16.6957 8.3043 17.3216 8.28591 17.7336 8.65206L20.6592 11.2526C21.1067 11.6504 21.1067 12.3496 20.6592 12.7474L17.7336 15.3479C17.3216 15.7141 16.6957 15.6957 16.306 15.306C15.8732 14.8732 15.9054 14.1621 16.3756 13.7703L18.1313 12.3073C18.3232 12.1474 18.3232 11.8526 18.1313 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											恢復上架</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【刪除】-->
+									<div class="menu-item px-3">
+										<a href="#" class="menu-link px-3"
+											data-kt-ecommerce-product-filter="delete_row">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											刪除</a>
+									</div>
+									<!--end::Menu item-->
+								</div>
+								<!--end::Menu-->
+							</td>
+							<!--end::Action=-->
+						</tr>
+						<!--end::Table row-->
+						<!--begin::Table row-->
+						<tr>
+							<!--begin::Checkbox-->
+							<td>
+								<div class="form-check form-check-sm form-check-custom form-check-solid">
+									<input class="form-check-input" type="checkbox" value="1" />
+								</div>
+							</td>
+							<!--end::Checkbox-->
+							<!--begin::Category=-->
+							<td>
+								<div class="d-flex align-items-center">
+									<!--begin::Thumbnail-->
+									<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+										class="symbol symbol-50px">
+										<span class="symbol-label"
+											style="background-image:url(/assets/media//stock/ecommerce/3.gif);"></span>
+									</a>
+									<!--end::Thumbnail-->
+									<div class="ms-5">
+										<!--begin::Title-->
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="text-gray-800 text-hover-primary fs-5 fw-bold"
+											data-kt-ecommerce-product-filter="product_name">新春禮盒_招牌Q餅(10入) X 2盒</a>
+										<!--end::Title-->
+									</div>
+								</div>
+							</td>
+							<!--end::Category=-->
+							<!--begin::SKU=-->
+							<td class="text-end pe-0">
+								<div>
+									<span class="badge badge-light-dark">特選組合</span>
+									<span class="fw-bold">BOM00185164032999</span>
+								</div>
+							</td>
+							<!--end::SKU=-->
+							<!--begin::Qty=-->
+							<td class="text-end pe-0" data-order="11">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">11</a>
+								</div>
+							</td>
+							<!--end::Qty=-->
+							<!--begin::安全庫存-->
+							<td class="text-end pe-0" data-order="2">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+							</td>
+							<!--end::安全庫存-->
+							<!--begin::Price=-->
+							<td class="text-end pe-0">212</td>
+							<!--end::Price=-->
+							<!--begin::Status=-->
+							<td class="text-end pe-0" data-order="上架中">
+								<!--begin::Badges-->
+								<div class="badge badge-light-success">上架中</div>
+								<!--end::Badges-->
+							</td>
+							<!--end::Status=-->
+							<!--begin::Action=-->
+							<td class="text-end">
+								<a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">操作
+									<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+									<span class="svg-icon svg-icon-5 m-0">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+												fill="currentColor" />
+										</svg>
+									</span>
+									<!--end::Svg Icon--></a>
+								<!--begin::Menu-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+									data-kt-menu="true">
+									<!--begin::Menu item 【查看】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+														height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+														fill="currentColor" />
+													<path
+														d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+														fill="currentColor" />
+
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											查看</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【編輯】「狀態限定：下架、未送審／草稿」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+														d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"
+														fill="currentColor" />
+													<path
+														d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
+														fill="currentColor" />
+													<path
+														d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											編輯</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【複製】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z"
+														fill="currentColor" />
+													<path fill-rule="evenodd" clip-rule="evenodd"
+														d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											複製</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【下架】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M13 14.4V3.00003C13 2.40003 12.6 2.00003 12 2.00003C11.4 2.00003 11 2.40003 11 3.00003V14.4H13Z"
+														fill="currentColor" />
+													<path
+														d="M5.7071 16.1071C5.07714 15.4771 5.52331 14.4 6.41421 14.4H17.5858C18.4767 14.4 18.9229 15.4771 18.2929 16.1071L12.7 21.7C12.3 22.1 11.7 22.1 11.3 21.7L5.7071 16.1071Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											下架</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【暫時停售】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" x="8.5" y="11" width="12" height="2" rx="1"
+														fill="currentColor" />
+													<path
+														d="M10.3687 11.6927L12.1244 10.2297C12.5946 9.83785 12.6268 9.12683 12.194 8.69401C11.8043 8.3043 11.1784 8.28591 10.7664 8.65206L7.84084 11.2526C7.39332 11.6504 7.39332 12.3496 7.84084 12.7474L10.7664 15.3479C11.1784 15.7141 11.8043 15.6957 12.194 15.306C12.6268 14.8732 12.5946 14.1621 12.1244 13.7703L10.3687 12.3073C10.1768 12.1474 10.1768 11.8526 10.3687 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											暫時停售</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【恢復上架】「狀態限定：停售中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" width="12" height="2" rx="1"
+														transform="matrix(-1 0 0 1 20 11)" fill="currentColor" />
+													<path
+														d="M18.1313 11.6927L16.3756 10.2297C15.9054 9.83785 15.8732 9.12683 16.306 8.69401C16.6957 8.3043 17.3216 8.28591 17.7336 8.65206L20.6592 11.2526C21.1067 11.6504 21.1067 12.3496 20.6592 12.7474L17.7336 15.3479C17.3216 15.7141 16.6957 15.6957 16.306 15.306C15.8732 14.8732 15.9054 14.1621 16.3756 13.7703L18.1313 12.3073C18.3232 12.1474 18.3232 11.8526 18.1313 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											恢復上架</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【刪除】-->
+									<div class="menu-item px-3">
+										<a href="#" class="menu-link px-3"
+											data-kt-ecommerce-product-filter="delete_row">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											刪除</a>
+									</div>
+									<!--end::Menu item-->
+								</div>
+								<!--end::Menu-->
+							</td>
+							<!--end::Action=-->
+						</tr>
+						<!--end::Table row-->
+						<!--begin::Table row-->
+						<tr>
+							<!--begin::Checkbox-->
+							<td>
+								<div class="form-check form-check-sm form-check-custom form-check-solid">
+									<input class="form-check-input" type="checkbox" value="1" />
+								</div>
+							</td>
+							<!--end::Checkbox-->
+							<!--begin::Category=-->
+							<td>
+								<div class="d-flex align-items-center">
+									<!--begin::Thumbnail-->
+									<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+										class="symbol symbol-50px">
+										<span class="symbol-label"
+											style="background-image:url(/assets/media//stock/ecommerce/4.gif);"></span>
+									</a>
+									<!--end::Thumbnail-->
+									<div class="ms-5">
+										<!--begin::Title-->
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="text-gray-800 text-hover-primary fs-5 fw-bold"
+											data-kt-ecommerce-product-filter="product_name">《2023新春限定》｜良辰朝暮紅｜洛神荔枝寒天琥珀糖禮5盒組</a>
+										<!--end::Title-->
+									</div>
+								</div>
+							</td>
+							<!--end::Category=-->
+							<!--begin::SKU=-->
+							<td class="text-end pe-0">
+								<div>
+									<span class="badge badge-light-dark">單一規格</span>
+									<span class="fw-bold">EC00185039705</span>
+								</div>
+							</td>
+							<!--end::SKU=-->
+							<!--begin::Qty=-->
+							<td class="text-end pe-0" data-order="22">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">22</a>
+								</div>
+							</td>
+							<!--end::Qty=-->
+							<!--begin::安全庫存-->
+							<td class="text-end pe-0" data-order="2">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+							</td>
+							<!--end::安全庫存-->
+							<!--begin::Price=-->
+							<td class="text-end pe-0">127</td>
+							<!--end::Price=-->
+							<!--begin::Status=-->
+							<td class="text-end pe-0" data-order="審核不通過">
+								<!--begin::Badges-->
+								<div class="badge badge-light-danger">審核不通過</div>
+								<!--end::Badges-->
+							</td>
+							<!--end::Status=-->
+							<!--begin::Action=-->
+							<td class="text-end">
+								<a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">操作
+									<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+									<span class="svg-icon svg-icon-5 m-0">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+												fill="currentColor" />
+										</svg>
+									</span>
+									<!--end::Svg Icon--></a>
+								<!--begin::Menu-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+									data-kt-menu="true">
+									<!--begin::Menu item 【查看】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+														height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+														fill="currentColor" />
+													<path
+														d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+														fill="currentColor" />
+
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											查看</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【編輯】「狀態限定：下架、未送審／草稿」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+														d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"
+														fill="currentColor" />
+													<path
+														d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
+														fill="currentColor" />
+													<path
+														d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											編輯</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【複製】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z"
+														fill="currentColor" />
+													<path fill-rule="evenodd" clip-rule="evenodd"
+														d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											複製</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【下架】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M13 14.4V3.00003C13 2.40003 12.6 2.00003 12 2.00003C11.4 2.00003 11 2.40003 11 3.00003V14.4H13Z"
+														fill="currentColor" />
+													<path
+														d="M5.7071 16.1071C5.07714 15.4771 5.52331 14.4 6.41421 14.4H17.5858C18.4767 14.4 18.9229 15.4771 18.2929 16.1071L12.7 21.7C12.3 22.1 11.7 22.1 11.3 21.7L5.7071 16.1071Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											下架</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【暫時停售】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" x="8.5" y="11" width="12" height="2" rx="1"
+														fill="currentColor" />
+													<path
+														d="M10.3687 11.6927L12.1244 10.2297C12.5946 9.83785 12.6268 9.12683 12.194 8.69401C11.8043 8.3043 11.1784 8.28591 10.7664 8.65206L7.84084 11.2526C7.39332 11.6504 7.39332 12.3496 7.84084 12.7474L10.7664 15.3479C11.1784 15.7141 11.8043 15.6957 12.194 15.306C12.6268 14.8732 12.5946 14.1621 12.1244 13.7703L10.3687 12.3073C10.1768 12.1474 10.1768 11.8526 10.3687 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											暫時停售</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【恢復上架】「狀態限定：停售中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" width="12" height="2" rx="1"
+														transform="matrix(-1 0 0 1 20 11)" fill="currentColor" />
+													<path
+														d="M18.1313 11.6927L16.3756 10.2297C15.9054 9.83785 15.8732 9.12683 16.306 8.69401C16.6957 8.3043 17.3216 8.28591 17.7336 8.65206L20.6592 11.2526C21.1067 11.6504 21.1067 12.3496 20.6592 12.7474L17.7336 15.3479C17.3216 15.7141 16.6957 15.6957 16.306 15.306C15.8732 14.8732 15.9054 14.1621 16.3756 13.7703L18.1313 12.3073C18.3232 12.1474 18.3232 11.8526 18.1313 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											恢復上架</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【刪除】-->
+									<div class="menu-item px-3">
+										<a href="#" class="menu-link px-3"
+											data-kt-ecommerce-product-filter="delete_row">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											刪除</a>
+									</div>
+									<!--end::Menu item-->
+								</div>
+								<!--end::Menu-->
+							</td>
+							<!--end::Action=-->
+						</tr>
+						<!--end::Table row-->
+						<!--begin::Table row-->
+						<tr>
+							<!--begin::Checkbox-->
+							<td>
+								<div class="form-check form-check-sm form-check-custom form-check-solid">
+									<input class="form-check-input" type="checkbox" value="1" />
+								</div>
+							</td>
+							<!--end::Checkbox-->
+							<!--begin::Category=-->
+							<td>
+								<div class="d-flex align-items-center">
+									<!--begin::Thumbnail-->
+									<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+										class="symbol symbol-50px">
+										<span class="symbol-label"
+											style="background-image:url(/assets/media//stock/ecommerce/5.gif);"></span>
+									</a>
+									<!--end::Thumbnail-->
+									<div class="ms-5">
+										<!--begin::Title-->
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="text-gray-800 text-hover-primary fs-5 fw-bold"
+											data-kt-ecommerce-product-filter="product_name">《2023新春限定》十全十美御守袋茶鐵盒｜20入茶包禮盒（附專屬提袋／鐵盒裝）</a>
+										<!--end::Title-->
+									</div>
+								</div>
+							</td>
+							<!--end::Category=-->
+							<!--begin::SKU=-->
+							<td class="text-end pe-0">
+								<div>
+									<span class="badge badge-light-dark">單一規格</span>
+									<span class="fw-bold">EC00185039705</span>
+								</div>
+							</td>
+							<!--end::SKU=-->
+							<!--begin::Qty=-->
+							<td class="text-end pe-0" data-order="42">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">32</a>
+								</div>
+							</td>
+							<!--end::Qty=-->
+							<!--begin::安全庫存-->
+							<td class="text-end pe-0" data-order="2">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+							</td>
+							<!--end::安全庫存-->
+							<!--begin::Price=-->
+							<td class="text-end pe-0">122</td>
+							<!--end::Price=-->
+							<!--begin::Status=-->
+							<td class="text-end pe-0" data-order="待審核">
+								<!--begin::Badges-->
+								<div class="badge badge-light-primary">待審核</div>
+								<!--end::Badges-->
+							</td>
+							<!--end::Status=-->
+							<!--begin::Action=-->
+							<td class="text-end">
+								<a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">操作
+									<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+									<span class="svg-icon svg-icon-5 m-0">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+												fill="currentColor" />
+										</svg>
+									</span>
+									<!--end::Svg Icon--></a>
+								<!--begin::Menu-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+									data-kt-menu="true">
+									<!--begin::Menu item 【查看】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+														height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+														fill="currentColor" />
+													<path
+														d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											查看</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【編輯】「狀態限定：下架、未送審／草稿」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+														d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"
+														fill="currentColor" />
+													<path
+														d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
+														fill="currentColor" />
+													<path
+														d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											編輯</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【複製】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z"
+														fill="currentColor" />
+													<path fill-rule="evenodd" clip-rule="evenodd"
+														d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											複製</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【下架】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M13 14.4V3.00003C13 2.40003 12.6 2.00003 12 2.00003C11.4 2.00003 11 2.40003 11 3.00003V14.4H13Z"
+														fill="currentColor" />
+													<path
+														d="M5.7071 16.1071C5.07714 15.4771 5.52331 14.4 6.41421 14.4H17.5858C18.4767 14.4 18.9229 15.4771 18.2929 16.1071L12.7 21.7C12.3 22.1 11.7 22.1 11.3 21.7L5.7071 16.1071Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											下架</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【暫時停售】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" x="8.5" y="11" width="12" height="2" rx="1"
+														fill="currentColor" />
+													<path
+														d="M10.3687 11.6927L12.1244 10.2297C12.5946 9.83785 12.6268 9.12683 12.194 8.69401C11.8043 8.3043 11.1784 8.28591 10.7664 8.65206L7.84084 11.2526C7.39332 11.6504 7.39332 12.3496 7.84084 12.7474L10.7664 15.3479C11.1784 15.7141 11.8043 15.6957 12.194 15.306C12.6268 14.8732 12.5946 14.1621 12.1244 13.7703L10.3687 12.3073C10.1768 12.1474 10.1768 11.8526 10.3687 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											暫時停售</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【恢復上架】「狀態限定：停售中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" width="12" height="2" rx="1"
+														transform="matrix(-1 0 0 1 20 11)" fill="currentColor" />
+													<path
+														d="M18.1313 11.6927L16.3756 10.2297C15.9054 9.83785 15.8732 9.12683 16.306 8.69401C16.6957 8.3043 17.3216 8.28591 17.7336 8.65206L20.6592 11.2526C21.1067 11.6504 21.1067 12.3496 20.6592 12.7474L17.7336 15.3479C17.3216 15.7141 16.6957 15.6957 16.306 15.306C15.8732 14.8732 15.9054 14.1621 16.3756 13.7703L18.1313 12.3073C18.3232 12.1474 18.3232 11.8526 18.1313 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											恢復上架</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【刪除】-->
+									<div class="menu-item px-3">
+										<a href="#" class="menu-link px-3"
+											data-kt-ecommerce-product-filter="delete_row">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											刪除</a>
+									</div>
+									<!--end::Menu item-->
+								</div>
+								<!--end::Menu-->
+							</td>
+							<!--end::Action=-->
+						</tr>
+						<!--end::Table row-->
+						<!--begin::Table row-->
+						<tr>
+							<!--begin::Checkbox-->
+							<td>
+								<div class="form-check form-check-sm form-check-custom form-check-solid">
+									<input class="form-check-input" type="checkbox" value="1" />
+								</div>
+							</td>
+							<!--end::Checkbox-->
+							<!--begin::Category=-->
+							<td>
+								<div class="d-flex align-items-center">
+									<!--begin::Thumbnail-->
+									<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+										class="symbol symbol-50px">
+										<span class="symbol-label"
+											style="background-image:url(/assets/media//stock/ecommerce/6.gif);"></span>
+									</a>
+									<!--end::Thumbnail-->
+									<div class="ms-5">
+										<!--begin::Title-->
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="text-gray-800 text-hover-primary fs-5 fw-bold"
+											data-kt-ecommerce-product-filter="product_name">《2023新春限定》傳家手工年糖</a>
+										<!--end::Title-->
+									</div>
+								</div>
+							</td>
+							<!--end::Category=-->
+							<!--begin::SKU=-->
+							<td class="text-end pe-0">
+								<div>
+									<span class="badge badge-light-dark">單一規格</span>
+									<span class="fw-bold">EC00185039705</span>
+								</div>
+							</td>
+							<!--end::SKU=-->
+							<!--begin::Qty=-->
+							<td class="text-end pe-0" data-order="35">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">35</a>
+								</div>
+							</td>
+							<!--end::Qty=-->
+							<!--begin::安全庫存-->
+							<td class="text-end pe-0" data-order="2">
+								<div>
+									<a href="#" class="text-gray-600 text-hover-primary fw-bold ms-3"
+										data-bs-toggle="modal" data-bs-target="#kt_qty_edit_modal">2</a>
+								</div>
+							</td>
+							<!--end::安全庫存-->
+							<!--begin::Price=-->
+							<td class="text-end pe-0">290</td>
+							<!--end::Price=-->
+							<!--begin::Status=-->
+							<td class="text-end pe-0" data-order="未送審／草稿">
+								<!--begin::Badges-->
+								<div class="badge badge-light-info">未送審／草稿</div>
+								<!--end::Badges-->
+							</td>
+							<!--end::Status=-->
+							<!--begin::Action=-->
+							<td class="text-end">
+								<a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">操作
+									<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+									<span class="svg-icon svg-icon-5 m-0">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+												fill="currentColor" />
+										</svg>
+									</span>
+									<!--end::Svg Icon--></a>
+								<!--begin::Menu-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+									data-kt-menu="true">
+									<!--begin::Menu item 【查看】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+														height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+														fill="currentColor" />
+													<path
+														d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+														fill="currentColor" />
+
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											查看</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【編輯】「狀態限定：下架、未送審／草稿」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+														d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z"
+														fill="currentColor" />
+													<path
+														d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z"
+														fill="currentColor" />
+													<path
+														d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											編輯</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【複製】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M18 2H9C7.34315 2 6 3.34315 6 5H8C8 4.44772 8.44772 4 9 4H18C18.5523 4 19 4.44772 19 5V16C19 16.5523 18.5523 17 18 17V19C19.6569 19 21 17.6569 21 16V5C21 3.34315 19.6569 2 18 2Z"
+														fill="currentColor" />
+													<path fill-rule="evenodd" clip-rule="evenodd"
+														d="M14.7857 7.125H6.21429C5.62255 7.125 5.14286 7.6007 5.14286 8.1875V18.8125C5.14286 19.3993 5.62255 19.875 6.21429 19.875H14.7857C15.3774 19.875 15.8571 19.3993 15.8571 18.8125V8.1875C15.8571 7.6007 15.3774 7.125 14.7857 7.125ZM6.21429 5C4.43908 5 3 6.42709 3 8.1875V18.8125C3 20.5729 4.43909 22 6.21429 22H14.7857C16.5609 22 18 20.5729 18 18.8125V8.1875C18 6.42709 16.5609 5 14.7857 5H6.21429Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											複製</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【下架】-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.5"
+														d="M13 14.4V3.00003C13 2.40003 12.6 2.00003 12 2.00003C11.4 2.00003 11 2.40003 11 3.00003V14.4H13Z"
+														fill="currentColor" />
+													<path
+														d="M5.7071 16.1071C5.07714 15.4771 5.52331 14.4 6.41421 14.4H17.5858C18.4767 14.4 18.9229 15.4771 18.2929 16.1071L12.7 21.7C12.3 22.1 11.7 22.1 11.3 21.7L5.7071 16.1071Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											下架</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【暫時停售】「狀態限定：上架中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" x="8.5" y="11" width="12" height="2" rx="1"
+														fill="currentColor" />
+													<path
+														d="M10.3687 11.6927L12.1244 10.2297C12.5946 9.83785 12.6268 9.12683 12.194 8.69401C11.8043 8.3043 11.1784 8.28591 10.7664 8.65206L7.84084 11.2526C7.39332 11.6504 7.39332 12.3496 7.84084 12.7474L10.7664 15.3479C11.1784 15.7141 11.8043 15.6957 12.194 15.306C12.6268 14.8732 12.5946 14.1621 12.1244 13.7703L10.3687 12.3073C10.1768 12.1474 10.1768 11.8526 10.3687 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											暫時停售</a>
+									</div>
+									<!--end::Menu item-->
+									<!--begin::Menu item 【恢復上架】「狀態限定：停售中」-->
+									<div class="menu-item px-3">
+										<a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html"
+											class="menu-link px-3">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<rect opacity="0.3" width="12" height="2" rx="1"
+														transform="matrix(-1 0 0 1 20 11)" fill="currentColor" />
+													<path
+														d="M18.1313 11.6927L16.3756 10.2297C15.9054 9.83785 15.8732 9.12683 16.306 8.69401C16.6957 8.3043 17.3216 8.28591 17.7336 8.65206L20.6592 11.2526C21.1067 11.6504 21.1067 12.3496 20.6592 12.7474L17.7336 15.3479C17.3216 15.7141 16.6957 15.6957 16.306 15.306C15.8732 14.8732 15.9054 14.1621 16.3756 13.7703L18.1313 12.3073C18.3232 12.1474 18.3232 11.8526 18.1313 11.6927Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+														fill="currentColor" />
+
+
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											恢復上架</a>
+									</div>
+									<!--end::Menu item-->
+									<div class="separator my-2"></div>
+									<!--begin::Menu item 【刪除】-->
+									<div class="menu-item px-3">
+										<a href="#" class="menu-link px-3"
+											data-kt-ecommerce-product-filter="delete_row">
+											<!--begin::Svg Icon -->
+											<span class="svg-icon svg-icon-5 mx-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<path
+														d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+														fill="currentColor" />
+													<path opacity="0.5"
+														d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+														fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											刪除</a>
+									</div>
+									<!--end::Menu item-->
+								</div>
+								<!--end::Menu-->
+							</td>
+							<!--end::Action=-->
+						</tr>
+						<!--end::Table row-->
+
+					</tbody>
+					<!--end::Table body-->
+				</table>
+				<!--end::Table-->
+			</div>
+			<!--end::Card body-->
+		</div>
+		<!--end::Products-->
+		<!--begin::Modals-->
+		<!--begin::Modal - Adjust Balance-->
+		<div class="modal fade" id="kt_qty_edit_modal" tabindex="-1" aria-hidden="true">
+			<!--begin::Modal dialog-->
+			<div class="modal-dialog modal-dialog-centered mw-800px">
+				<!--begin::Modal content-->
+				<div class="modal-content">
+					<!--begin::Modal header-->
+					<div class="modal-header">
+						<!--begin::Modal title-->
+						<h2 class="fw-bold">調整庫存<br>
+							<span
+								class="fs-5">BOM001851640328845<br>《2023新春限定》◆福兔迎祥大禮盒3入◆(芝麻杏仁香脆肉紙+特厚蜜汁豬肉乾+原味元氣條)</span>
+						</h2>
+
+						<!--end::Modal title-->
+						<!--begin::Close-->
+						<div id="kt_qty_edit_modal_close" class="btn btn-icon btn-sm btn-active-icon-primary"
+							data-bs-dismiss="modal">
+							<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+							<span class="svg-icon svg-icon-1">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+										transform="rotate(-45 6 17.3137)" fill="currentColor" />
+									<rect x="7.41422" y="6" width="16" height="2" rx="1"
+										transform="rotate(45 7.41422 6)" fill="currentColor" />
+								</svg>
+							</span>
+							<!--end::Svg Icon-->
+						</div>
+						<!--end::Close-->
+					</div>
+					<!--end::Modal header-->
+					<!--begin::Modal body-->
+					<div class="modal-body scroll-y mx-2 mx-xl-15 my-7">
+						<!--begin::Form-->
+						<form id="kt_qty_edit_form" class="form" action="#">
+							<div class="mb-14">
+								<!--begin::Table container-->
+								<div class="table-responsive mb-3">
+									<!--begin::Table-->
+									<table class="table table-striped table-row-dashed  align-middle gs-0 gy-4">
+										<!--begin::Table head-->
+										<thead>
+											<tr class="fw-bold fs-6 text-gray-800  border-0 text-center">
+												<th class="min-w-200px rounded-start ps-6">庫存調整時間</th>
+												<th class="min-w-140px">原因</th>
+												<th class="min-w-120px">增減數量</th>
+												<th class="min-w-100px rounded-end">調整後庫存量</th>
+											</tr>
+										</thead>
+										<!--end::Table head-->
+										<!--begin::Table body-->
+										<tbody class="border-bottom border-dashed text-center">
+											<tr>
+												<td class="text-start ps-6 ">2022-10-18 11:17:34</td>
+												<td>初始值</td>
+												<td>1</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">
+													2022-10-18 11:18:46
+												</td>
+												<td>
+													商品修改
+												</td>
+												<td>
+													1
+												</td>
+												<td>
+													1
+												</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">2022-10-18 11:18:46</td>
+												<td>商品修改</td>
+												<td>0</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">2022-10-18 11:18:46</td>
+												<td>商品修改</td>
+												<td>0</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">2022-10-18 11:18:46</td>
+												<td>商品修改</td>
+												<td>0</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">2022-10-18 11:18:46</td>
+												<td>商品修改</td>
+												<td>0</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">2022-10-18 11:18:46</td>
+												<td>商品修改</td>
+												<td>0</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">2022-10-18 11:18:46</td>
+												<td>商品修改</td>
+												<td>0</td>
+												<td>1</td>
+											</tr>
+											<tr>
+												<td class="text-start ps-6">2022-10-18 11:18:46</td>
+												<td>商品修改</td>
+												<td>0</td>
+												<td>1</td>
+											</tr>
+										</tbody>
+										<!--end::Table body-->
+									</table>
+									<!--end::Table-->
+								</div>
+								<!--end::Table container-->
+								<!--begin::Input group-->
+								<div class="row g-9 mb-8">
+									<!--begin::Col-->
+									<div class="col-md-6 fv-row fv-plugins-icon-container">
+										<label class="required fs-6 fw-semibold mb-2">庫存</label>
+										<input class="form-control form-control-solid" type="text" placeholder="庫存量"
+											name="" />
+									</div>
+									<!--end::Col-->
+									<!--begin::Col-->
+									<div class="col-md-6 fv-row">
+										<label class="required fs-6 fw-semibold mb-2">安全庫存</label>
+										<input class="form-control form-control-solid" type="text" placeholder="安全庫存量"
+											name="" />
+									</div>
+									<!--end::Col-->
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+									<!--begin::Label-->
+									<label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+										<span>調整原因</span>
+									</label>
+									<!--end::Label-->
+									<input type="text" class="form-control form-control-solid" placeholder="非必填"
+										name="target_title">
+								</div>
+								<!--end::Input group-->
+							</div>
+							<!--begin::Actions-->
+							<div class="text-center">
+								<button type="reset" id="kt_qty_cancel" class="btn btn-light me-3"
+									data-bs-dismiss="modal">取消</button>
+								<button type="submit" id="kt_qty_submit" class="btn btn-primary">
+									<span class="indicator-label">確認</span>
+									<span class="indicator-progress">Please wait...
+										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+								</button>
+							</div>
+							<!--end::Actions-->
+						</form>
+						<!--end::Form-->
+					</div>
+					<!--end::Modal body-->
+				</div>
+				<!--end::Modal content-->
+			</div>
+			<!--end::Modal dialog-->
+		</div>
+		<!--end::Modal - New Card-->
+		<!--end::Modals-->
+	</div>
+	<!--end::Content container-->
+</div>
+<!--end::Content-->
+
+@section Scripts {
+    <script src="/assets/js/custom/apps/ecommerce/catalog/products.js"></script>
+}

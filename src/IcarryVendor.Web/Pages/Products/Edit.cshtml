@@ -1,0 +1,1465 @@
+@page
+@model IcarryVendor.Web.Pages.Products.EditModel
+@{
+    ViewData["Title"] = "商品編輯";
+}
+<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+	<!--begin::Toolbar container-->
+	<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+		<!--begin::Page title-->
+		<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+			<!--begin::Title-->
+			<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+				編輯商品</h1>
+			<!--end::Title-->
+			<!--begin::Breadcrumb-->
+			<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+				<!--begin::Item-->
+				<li class="breadcrumb-item text-muted">
+					<a href="/" class="text-muted text-hover-primary">首頁</a>
+				</li>
+				<!--end::Item-->
+				<!--begin::Item-->
+				<li class="breadcrumb-item">
+					<span class="bullet bg-gray-400 w-5px h-2px"></span>
+				</li>
+				<!--end::Item-->
+				<!--begin::Item-->
+				<li class="breadcrumb-item text-muted">編輯商品</li>
+				<!--end::Item-->
+			</ul>
+			<!--end::Breadcrumb-->
+		</div>
+		<!--end::Page title-->
+
+	</div>
+	<!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Content-->
+<div id="kt_app_content" class="app-content flex-column-fluid">
+	<!--begin::Content container-->
+	<div id="kt_app_content_container" class="app-container container-xxl">
+		<!--begin::Form-->
+		<form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row"
+			data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/products.html">
+			<!--begin::Aside column-->
+			<div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+				<!--begin::Status-->
+				<div class="card card-flush py-4">
+					<!--begin::Card header-->
+					<div class="card-header">
+						<!--begin::Card title-->
+						<div class="card-title">
+							<h2>商品狀態</h2>
+						</div>
+						<!--end::Card title-->
+						<!--begin::Card toolbar-->
+						<div class="card-toolbar">
+							<div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status">
+							</div>
+						</div>
+						<!--begin::Card toolbar-->
+					</div>
+					<!--end::Card header-->
+					<!--begin::Card body-->
+					<div class="card-body pt-0">
+						<!--begin::Select2-->
+						<select disabled class="form-select form-select-solid mb-2" data-control="select2"
+							data-hide-search="true" data-placeholder="Select an option"
+							id="kt_ecommerce_add_product_status_select">
+							<option></option>
+							<option value="上架中" selected="selected">上架中</option>
+							<option value="待審核">待審核</option>
+							<option value="未送審／草稿">未送審／草稿</option>
+							<option value="審核不通過">審核不通過</option>
+							<option value="停售中">停售中</option>
+							<option value="已下架">已下架</option>
+						</select>
+						<!--end::Select2-->
+						<!--begin::Description-->
+						<div class="text-muted fs-7">商品狀態無法變更，請使用送審功能將商品送審，管理人員審核無誤後將會上架商品。</div>
+						<!--end::Description-->
+					</div>
+					<!--end::Card body-->
+				</div>
+				<!--end::Status-->
+				<!--begin::商品分類-->
+				<div class="card card-flush py-4">
+					<!--begin::Card header-->
+					<div class="card-header">
+						<!--begin::Card title-->
+						<div class="card-title">
+							<h2>商品分類</h2>
+						</div>
+						<!--end::Card title-->
+					</div>
+					<!--end::Card header-->
+					<!--begin::Card body-->
+					<div class="card-body pt-0">
+						<!--begin::Select2-->
+						<select class="form-select mb-2" data-control="select2" data-hide-search="true"
+							data-placeholder="Select an option">
+							<option></option>
+							<option value="糕餅零食" selected="selected">糕餅零食</option>
+							<option value="天然農特">天然農特</option>
+							<option value="飲品茶葉">飲品茶葉</option>
+							<option value="女人我最大">女人我最大</option>
+							<option value="保健商品">保健商品</option>
+							<option value="文創生活">文創生活</option>
+						</select>
+						<!--end::Select2-->
+						<!--begin::Description-->
+						<div class="text-muted fs-7">請選擇商品分類。</div>
+						<!--end::Description-->
+					</div>
+					<!--end::Card body-->
+				</div>
+				<!--end::商品分類-->
+			</div>
+			<!--end::Aside column-->
+			<!--begin::Main column-->
+			<div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+				<!--begin:::Tabs-->
+				<ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
+					<!--begin:::Tab item-->
+					<li class="nav-item">
+						<a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
+							href="#kt_ecommerce_add_product_general">基本資料</a>
+					</li>
+					<!--end:::Tab item-->
+					<!--begin:::Tab item-->
+					<li class="nav-item">
+						<a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+							href="#kt_ecommerce_add_product_advanced">英文資料</a>
+					</li>
+					<!--end:::Tab item-->
+
+				</ul>
+				<!--end:::Tabs-->
+				<!--begin::Tab content-->
+				<div class="tab-content">
+					<!--begin::Tab pane-->
+					<div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+						<div class="d-flex flex-column gap-7 gap-lg-10">
+							<!--begin::General options-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>商品基本資料</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">廠牌</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="product_name" class="form-control mb-2"
+											placeholder="廠牌" value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">必填，請填寫廠牌。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">商品名稱</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="商品名稱" class="form-control mb-2" placeholder="商品名稱"
+											value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">必填，請填寫商品名稱。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">出口用英文名稱</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="出口用英文名稱" class="form-control mb-2"
+											placeholder="出口用英文名稱" value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">必填，請填寫出口用英文名稱。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!-- begin::內容物(規格)、保存天數 -->
+									<div class="d-flex flex-wrap gap-5 mb-10">
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class=" form-label">內容物(規格)</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="text" name="內容物(規格)" class="form-control mb-2"
+												placeholder="內容物(規格)" value="" />
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">非必填，請填寫內容物(規格)。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">保存天數</label> <a href="#"
+												class="text-primary form-label">歷史記錄</a>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="number" class="form-control mb-2" value=""
+												placeholder="商品保存天數" />
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">必填，請填寫商品保存天數。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+									</div>
+									<!-- end::單位，毛重，淨重 -->
+									<!-- begin::單位，毛重，淨重 -->
+									<div class="d-flex flex-wrap gap-5 mb-10">
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">單位</label>
+											<!--end::Label-->
+											<!--begin::Select2-->
+											<select class="form-select mb-2" name="tax" data-control="select2"
+												data-hide-search="true" data-placeholder="Select an option">
+												<option></option>
+												<option value="個" selected="selected">個</option>
+												<option value="瓶">瓶</option>
+												<option value="罐">罐</option>
+												<option value="箱">箱</option>
+												<option value="張">張</option>
+												<option value="捲">捲</option>
+												<option value="捲">捲</option>
+												<option value="組">組</option>
+												<option value="克">克</option>
+												<option value="包">包</option>
+												<option value="袋">袋</option>
+												<option value="盒">盒</option>
+												<option value="套">套</option>
+												<option value="包">包</option>
+												<option value="支">支</option>
+												<option value="件">件</option>
+												<option value="雙">雙</option>
+												<option value="杯">杯</option>
+											</select>
+											<!--end::Select2-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">請選擇單位。
+											</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">毛重</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<div class="input-group">
+												<input type="number" class="form-control mb-2" value=""
+													placeholder="含外包裝的重量，請填寫數字" />
+												<span class="input-group-text mb-2">克</span>
+											</div>
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">必填，含外包裝的重量，請填寫數字。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class=" form-label">淨重</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<div class="input-group">
+												<input type="number" class="form-control mb-2" value=""
+													placeholder="不含外包裝的重量，請填寫數字" />
+												<span class="input-group-text mb-2">克</span>
+											</div>
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">非必填，不含外包裝的重量，請填寫數字。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+									</div>
+									<!-- end::單位，毛重，淨重 -->
+
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::General options-->
+							<!--begin::單一規格/款式/組合-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>規格／款式／組合</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Input group-->
+									<div class="fv-row mb-10">
+										<!--begin::Label-->
+										<label class="fs-6 fw-semibold mb-2">選擇規格／款式／組合
+											<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+												title="Select a discount type that will be applied to this product"></i></label>
+										<!--End::Label-->
+										<!--begin::Row-->
+										<div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9"
+											data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
+											<!--begin::Col-->
+											<div class="col">
+												<!--begin::Option-->
+												<label
+													class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6 active"
+													data-kt-button="true">
+													<!--begin::Radio-->
+													<span
+														class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+														<input class="form-check-input" type="radio" name="ecbom_option"
+															value="1" checked="checked" />
+													</span>
+													<!--end::Radio-->
+													<!--begin::Info-->
+													<span class="ms-5">
+														<span class="fs-4 fw-bold text-gray-800 d-block">單一規格</span>
+													</span>
+													<!--end::Info-->
+												</label>
+												<!--end::Option-->
+											</div>
+											<!--end::Col-->
+											<!--begin::Col-->
+											<div class="col">
+												<!--begin::Option-->
+												<label
+													class="btn btn-outline btn-outline-dashed btn-active-light-primary  d-flex text-start p-6"
+													data-kt-button="true">
+													<!--begin::Radio-->
+													<span
+														class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+														<input class="form-check-input" type="radio" name="ecbom_option"
+															value="2" />
+													</span>
+													<!--end::Radio-->
+													<!--begin::Info-->
+													<span class="ms-5">
+														<span class="fs-4 fw-bold text-gray-800 d-block">多種規格</span>
+													</span>
+													<!--end::Info-->
+												</label>
+												<!--end::Option-->
+											</div>
+											<!--end::Col-->
+											<!--begin::Col-->
+											<div class="col">
+												<!--begin::Option-->
+												<label
+													class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
+													data-kt-button="true">
+													<!--begin::Radio-->
+													<span
+														class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+														<input class="form-check-input" type="radio" name="ecbom_option"
+															value="3" />
+													</span>
+													<!--end::Radio-->
+													<!--begin::Info-->
+													<span class="ms-5">
+														<span class="fs-4 fw-bold text-gray-800 d-block">組合商品</span>
+													</span>
+													<!--end::Info-->
+												</label>
+												<!--end::Option-->
+											</div>
+											<!--end::Col-->
+										</div>
+										<!--end::Row-->
+									</div>
+									<!--end::Input group-->
+									<div class=" mb-10 fv-row" id="ecbom_ec">
+										<div class="input-group">
+											<span class="input-group-text mb-2">庫存</span>
+											<input type="number" class="form-control mb-2" value="1" placeholder="庫存" />
+											<span class="input-group-text mb-2">安全庫存</span>
+											<input type="number" class="form-control mb-2" value="1"
+												placeholder="安全庫存" />
+											<span class="input-group-text mb-2">國際條碼</span>
+											<input type="text" class="form-control mb-2" value=""
+												placeholder="國際條碼，正確為13碼" />
+											<a href="#" class="input-group-text text-primary mb-2">歷史記錄</a>
+										</div>
+									</div>
+									<!--begin::Input group-->
+									<div class="d-none mb-10 fv-row" id="ecbom_model">
+										<!--begin::Input group-->
+										<div class="mb-10 fv-row">
+											<!--begin::Label-->
+											<label class="required form-label">新增規格名稱</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<div class="input-group">
+												<input type="text" name="model_name" class="form-control mb-2"
+													placeholder="例如：口味、顏色、尺寸" id="model_name_input" value="" />
+												<button type="button" class="input-group-text text-primary mb-2"
+													id="model_name_confirm">確認</button>
+											</div>
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">必填，請填寫規格名稱。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+
+										<!-- begin::新增規格變量 於 save-product.js -->
+										<div id="add_model"></div>
+										<!-- end::新增規格變量 於 save-product.js -->
+
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div class="d-none mb-10 fv-row" id="ecbom_package">
+										<!--begin::Input group-->
+										<div class="mb-10 fv-row">
+											<!--begin::Label-->
+											<label class="required form-label">新增組合名稱</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<div class="input-group">
+												<input type="text" name="model_name" class="form-control mb-2"
+													placeholder="例如：A組合" id="model_name_input" value="" />
+												<button type="button" class="input-group-text text-primary mb-2"
+													id="model_name_confirm">確認</button>
+											</div>
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">必填，請填寫組合名稱。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+
+										<!-- begin::新增組合變量 於 save-product.js -->
+										<div id="add_package">
+
+											<div class="d-flex  gap-5">
+												<div class=" fv-row  w-50">
+													<table class="table table-rounded border gy-3 gs-3">
+														<tbody>
+															<tr class="border-bottom">
+																<td valign="middle">組合名稱</td>
+																<td><input type="text" name="price"
+																		class="form-control " placeholder=""
+																		value="A組合" /></td>
+															</tr>
+															<tr class="border-bottom">
+																<td valign="middle">組合貨號</td>
+																<td><input type="text" name="price"
+																		class="form-control " disabled
+																		value="BOM00238718816" /></td>
+															</tr>
+															<tr class="border-bottom">
+																<td valign="middle">庫存</td>
+																<td><input type="text" name="price"
+																		class="form-control " placeholder="請填寫數字"
+																		value="" /></td>
+															</tr>
+															<tr class="border-bottom">
+																<td valign="middle">安全庫存</td>
+																<td><input type="text" name="price"
+																		class="form-control " placeholder="請填寫數字"
+																		value="" /></td>
+															</tr>
+															<tr class="border-bottom">
+																<td valign="middle" colspan="2"><button type="button"
+																		class="btn btn-sm btn-light-danger">
+																		<!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+																		<span
+																			class="svg-icon svg-icon-muted svg-icon-2"><svg
+																				width="24" height="24"
+																				viewBox="0 0 24 24" fill="none"
+																				xmlns="http://www.w3.org/2000/svg">
+																				<path
+																					d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+																					fill="currentColor" />
+																				<path opacity="0.5"
+																					d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+																					fill="currentColor" />
+																				<path opacity="0.5"
+																					d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+																					fill="currentColor" />
+																			</svg>
+																		</span>
+																		<!--end::Svg Icon-->刪除此組合</button></td>
+
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<!--begin::Input group-->
+												<div class="fv-row w-100 ">
+													<div class="form-group d-flex  align-items-center gap-5">
+														<div class="input-group">
+
+															<span class="input-group-text mb-2">貨號</span>
+															<input type="number" class="form-control mb-2" value="1"
+																placeholder="庫存" />
+															<span class="input-group-text mb-2">品名</span>
+															<input type="number" class="form-control mb-2" value="1"
+																placeholder="安全庫存" />
+															<span class="input-group-text mb-2">數量</span>
+															<input type="text" class="form-control mb-2" value="1"
+																placeholder="數量" />
+														</div>
+														<button type="button" data-repeater-delete=""
+															class="btn btn-sm btn-icon btn-light-danger">
+															<!--begin::Svg Icon | path: icons/duotune/arrows/arr088.svg-->
+															<span class="svg-icon svg-icon-1">
+																<svg width="24" height="24" viewBox="0 0 24 24"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<rect opacity="0.5" x="7.05025" y="15.5356"
+																		width="12" height="2" rx="1"
+																		transform="rotate(-45 7.05025 15.5356)"
+																		fill="currentColor" />
+																	<rect x="8.46447" y="7.05029" width="12" height="2"
+																		rx="1" transform="rotate(45 8.46447 7.05029)"
+																		fill="currentColor" />
+																</svg>
+															</span>
+															<!--end::Svg Icon-->
+														</button>
+													</div>
+													<!--begin::Form group-->
+													<div class="form-group mt-5">
+														<button type="button" data-repeater-create=""
+															class="btn btn-sm btn-light-primary">
+															<!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+															<span class="svg-icon svg-icon-2">
+																<svg width="24" height="24" viewBox="0 0 24 24"
+																	fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<rect opacity="0.5" x="11" y="18" width="12"
+																		height="2" rx="1" transform="rotate(-90 11 18)"
+																		fill="currentColor" />
+																	<rect x="6" y="11" width="12" height="2" rx="1"
+																		fill="currentColor" />
+																</svg>
+															</span>
+															<!--end::Svg Icon-->新增單品</button>
+													</div>
+													<!--end::Form group-->
+												</div>
+												<!--end::Input group-->
+
+											</div>
+										</div>
+										<!-- end::新增組合變量 於 save-product.js -->
+									</div>
+									<!--end::Input group-->
+
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::一規格/款式/組合-->
+							<!--begin::Pricing-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>價格</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Tax-->
+									<div class="d-flex flex-wrap gap-5">
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">單價</label> <a href="#"
+												class="text-primary form-label">歷史記錄</a>
+											<!--end::Label-->
+											<input type="text" name="price" class="form-control mb-2"
+												placeholder="請填寫數字" value="" />
+											<!--begin::Description-->
+											<div class="text-muted fs-7">必填，請填寫單價。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">應稅別</label>
+											<!--end::Label-->
+											<!--begin::Select2-->
+											<select class="form-select mb-2" name="tax" data-control="select2"
+												data-hide-search="true" data-placeholder="Select an option">
+												<option></option>
+												<option value="0" selected="selected">免稅</option>
+												<option value="1">應稅</option>
+											</select>
+											<!--end::Select2-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">請選擇稅別。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+									</div>
+									<!--end:Tax-->
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::Pricing-->
+							<!--begin::特色簡介-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>特色簡介</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">特色(小標題)</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="product_name" class="form-control mb-2"
+											placeholder="建議輸入13個中文字以內" value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">此欄位將作為商品頁中字體放大的標題，請用簡單文字(建議輸入13個中文字以內)說明商品特色。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">簡介(商品描述)</label>
+										<!--end::Label-->
+										<!--begin::Col-->
+										<textarea name="notes" class="form-control mb-2" rows="3"
+											placeholder="建議輸入70個中文字以內"></textarea>
+										<!--end::Col-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">此欄位將作為商品頁中標題下方的簡單說明，建議輸入70個中文字以內的簡單介紹。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div>
+										<!--begin::Label-->
+										<label class="form-label">詳細說明(商品規格)</label>
+										<!--end::Label-->
+										<!--begin::Editor-->
+										<div id="kt_ecommerce_add_product_description"
+											name="kt_ecommerce_add_product_description" class="min-h-700px mb-2"></div>
+										<!--end::Editor-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">此欄位將作為商品頁中主要詳細介紹區塊，可使用圖片。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::特色簡介-->
+							<!--begin::物流選項-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>物流選項</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">可用物流方式</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<div class="d-flex py-4 ">
+											<div class="form-check form-check-custom form-check-solid me-9">
+												<input class="form-check-input" type="checkbox" value="1"
+													checked="checked" id="airport">
+												<label class="form-check-label ms-3 fs-5 text-dark"
+													for="airport">機場提貨</label>
+											</div>
+											<div class="form-check form-check-custom form-check-solid me-9">
+												<input class="form-check-input" type="checkbox" value="1"
+													checked="checked" id="hotel">
+												<label class="form-check-label ms-3 fs-5 text-dark"
+													for="hotel">旅店提貨</label>
+											</div>
+											<div class="form-check form-check-custom form-check-solid me-9">
+												<input class="form-check-input" type="checkbox" value="1"
+													checked="checked" id="local">
+												<label class="form-check-label ms-3 fs-5 text-dark"
+													for="local">寄送當地</label>
+											</div>
+											<div class="form-check form-check-custom form-check-solid me-9">
+												<input class="form-check-input" type="checkbox" value="1"
+													checked="checked" id="overseas">
+												<label class="form-check-label ms-3 fs-5 text-dark"
+													for="overseas">寄送海外</label>
+											</div>
+										</div>
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">請選擇可配送的物流方式。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::備貨天數-->
+									<div class="d-flex flex-wrap gap-5 mb-10">
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">機場提貨指定天數</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="text" class="form-control mb-2" value="" />
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-danger fs-7">請輸入所需備貨天數再加 3 天。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">旅店提貨指定天數</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input type="text" class="form-control mb-2" value="" />
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-danger fs-7">請輸入所需備貨天數再加 3 天。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+									</div>
+									<!--end::備貨天數-->
+									<!--begin::備貨天數-->
+									<div class="d-flex flex-wrap gap-5 mb-10">
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="required form-label">廠商直寄</label>
+											<!--end::Label-->
+											<!--begin::Select2-->
+											<select class="form-select mb-2" name="tax" data-control="select2"
+												data-hide-search="true" data-placeholder="Select an option">
+												<option></option>
+												<option value="0" selected="selected">否，寄往 iCarry 統倉</option>
+												<option value="1">是，直寄給消費者</option>
+											</select>
+											<!--end::Select2-->
+											<!--begin::Description-->
+											<div class="text-muted fs-7">請選擇直寄選項。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+										<!--begin::Input group-->
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Label-->
+											<label class="form-label">廠商最快出貨日</label>
+											<!--end::Label-->
+											<!--begin::Input-->
+											<input id="vendor_earliest_delivery_date"
+												name="vendor_earliest_delivery_date" placeholder="Select a date"
+												class="form-control mb-2" value="" />
+											<!--end::Input-->
+											<!--begin::Description-->
+											<div class="text-danger fs-7">
+												若設定廠商最快出貨日，將於商品前台提示此商品最快出貨時間，提醒顧客注意。設定後，也會影響顧客挑選配送的送達日期。不需要請留空。</div>
+											<!--end::Description-->
+										</div>
+										<!--end::Input group-->
+									</div>
+									<!--end::備貨天數-->
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">可寄送國家</label>
+										<!--end::Label-->
+										<!--begin::Select2-->
+										<select class="form-select mb-2" data-control="select2" data-placeholder="選擇"
+											data-allow-clear="true" multiple="multiple">
+											<option></option>
+											<option value="台灣" selected="selected">台灣</option>
+											<option value="中國" selected="selected">中國</option>
+											<option value="香港" selected="selected">香港</option>
+											<option value="澳門" selected="selected">澳門</option>
+											<option value="新加坡" selected="selected">新加坡</option>
+											<option value="馬來西亞" selected="selected">馬來西亞</option>
+											<option value="美國" selected="selected">美國</option>
+											<option value="南韓" selected="selected">南韓</option>
+											<option value="日本" selected="selected">日本</option>
+											<option value="加拿大" selected="selected">加拿大</option>
+											<option value="英國" selected="selected">英國</option>
+											<option value="越南" selected="selected">越南</option>
+											<option value="澳洲" selected="selected">澳洲</option>
+											<option value="泰國-曼谷" selected="selected">泰國-曼谷</option>
+											<option value="法國" selected="selected">法國</option>
+											<option value="紐西蘭" selected="selected">紐西蘭</option>
+										</select>
+										<!--end::Select2-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">必填，請填寫可寄送國家。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::物流選項-->
+							<!--begin::商品圖片-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>商品圖片</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<div class="d-flex flex-wrap gap-8 justify-content-start">
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-300px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip" Change
+													avatar>
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1000*1000，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-300px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1000*1000，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-300px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1000*1000，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-300px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1000*1000，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-300px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1000*1000，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+										</div>
+									</div>
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::商品圖片-->
+							<!--begin::舊版商品圖片-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>舊版商品圖片</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<div class="d-flex flex-wrap gap-8 justify-content-start">
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-210px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip" Change
+													avatar>
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1440*760，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-210px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1440*760，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-210px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1440*760，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-210px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1440*760，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+											<!--begin::Image input-->
+											<div class="image-input image-input-outline" data-kt-image-input="true"
+												style="background-image: url('/assets/icarry/background-image-placeholder-rectangle.jpg');background-position:center;">
+												<!--begin::Preview existing avatar-->
+												<div class="image-input-wrapper w-300px h-210px"
+													style="background-image: url(/assets/icarry/background-image-placeholder-rectangle.jpg);background-position:center;">
+												</div>
+												<!--end::Preview existing avatar-->
+												<!--begin::Label-->
+												<label
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="change" data-bs-toggle="tooltip"
+													title="更換圖片">
+													<i class="bi bi-pencil-fill fs-7"></i>
+													<!--begin::Inputs-->
+													<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+													<input type="hidden" name="avatar_remove" />
+													<!--end::Inputs-->
+												</label>
+												<!--end::Label-->
+												<!--begin::Cancel-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+													title="Cancel avatar">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Cancel-->
+												<!--begin::Remove-->
+												<span
+													class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+													data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+													title="移除圖片">
+													<i class="bi bi-x fs-2"></i>
+												</span>
+												<!--end::Remove-->
+											</div>
+											<!--end::Image input-->
+											<!--begin::Hint-->
+											<div class="form-text">請上傳圖檔，尺寸為 1440*760，可使用 png, jpg, jpeg.</div>
+											<!--end::Hint-->
+										</div>
+										<div class="fv-row w-100 flex-md-root">
+										</div>
+									</div>
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::舊版商品圖片-->
+						</div>
+					</div>
+					<!--end::Tab pane-->
+					<!--begin::Tab pane-->
+					<div class="tab-pane fade" id="kt_ecommerce_add_product_advanced" role="tab-panel">
+						<div class="d-flex flex-column gap-7 gap-lg-10">
+							<!--begin::Inventory-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>英文資料</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">廠牌（英文）</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="product_name" class="form-control mb-2"
+											placeholder="廠牌" value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">必填，請填寫廠牌。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">商品名稱（英文）</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="商品名稱" class="form-control mb-2" placeholder="商品名稱"
+											value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">必填，請填寫商品名稱。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class=" form-label">內容物(規格)（英文）</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="sku" class="form-control mb-2" placeholder="內容物(規格)"
+											value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">非必填，請填寫內容物(規格)。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::Inventory-->
+							<!--begin::特色簡介-->
+							<div class="card card-flush py-4">
+								<!--begin::Card header-->
+								<div class="card-header">
+									<div class="card-title">
+										<h2>特色簡介</h2>
+									</div>
+								</div>
+								<!--end::Card header-->
+								<!--begin::Card body-->
+								<div class="card-body pt-0">
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">特色(小標題)英文</label>
+										<!--end::Label-->
+										<!--begin::Input-->
+										<input type="text" name="product_name" class="form-control mb-2"
+											placeholder="建議輸入13個中文字以內" value="" />
+										<!--end::Input-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">此欄位將作為商品頁中字體放大的標題，請用簡單文字(建議輸入13個中文字以內)說明商品特色。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div class="mb-10 fv-row">
+										<!--begin::Label-->
+										<label class="required form-label">簡介(商品描述)英文</label>
+										<!--end::Label-->
+										<!--begin::Col-->
+										<textarea name="notes" class="form-control mb-2" rows="3"
+											placeholder="建議輸入70個中文字以內"></textarea>
+										<!--end::Col-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">此欄位將作為商品頁中標題下方的簡單說明，建議輸入70個中文字以內的簡單介紹。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+									<!--begin::Input group-->
+									<div>
+										<!--begin::Label-->
+										<label class="form-label">詳細說明(商品規格)英文</label>
+										<!--end::Label-->
+										<!--begin::Editor-->
+										<div id="kt_ecommerce_add_product_description_eng"
+											name="kt_ecommerce_add_product_description_eng" class="min-h-700px mb-2">
+										</div>
+										<!--end::Editor-->
+										<!--begin::Description-->
+										<div class="text-muted fs-7">此欄位將作為商品頁中主要詳細介紹區塊，可使用圖片。</div>
+										<!--end::Description-->
+									</div>
+									<!--end::Input group-->
+								</div>
+								<!--end::Card header-->
+							</div>
+							<!--end::特色簡介-->
+						</div>
+					</div>
+					<!--end::Tab pane-->
+
+				</div>
+				<!--end::Tab content-->
+				<div class="d-flex justify-content-end">
+					<!--begin::Button-->
+					<a href="../../demo1/dist/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel"
+						class="btn btn-light me-5">Cancel</a>
+					<!--end::Button-->
+					<!--begin::Button-->
+					<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+						<span class="indicator-label">Save Changes</span>
+						<span class="indicator-progress">Please wait...
+							<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+					</button>
+					<!--end::Button-->
+				</div>
+			</div>
+			<!--end::Main column-->
+		</form>
+		<!--end::Form-->
+	</div>
+	<!--end::Content container-->
+</div>
+<!--end::Content-->
+
+@section Scripts {
+    <script src="/assets/plugins/custom/formrepeater/formrepeater.bundle.js"></script>
+    <script src="/assets/js/custom/apps/ecommerce/catalog/save-product.js"></script>
+}
